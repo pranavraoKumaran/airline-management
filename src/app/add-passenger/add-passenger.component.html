@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<a [routerLink]="['/home']"><button>Go Back</button></a>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Add Passenger</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <h1>Passenger Form</h1>
+    <form (ngSubmit)="addPassenger()">
+        <input type="hidden" name="id" />
+
+        <label for="name">Name:</label><br>
+        <input [(ngModel)]="newPassenger.name" name="name" placeholder="name" required><br><br>
+
+        <label for="age">Age:</label><br>
+        <input [(ngModel)]="newPassenger.age" name="age" required><br><br>
+        <label for="gender">Gender:</label>
+        <select [(ngModel)]="newPassenger.gender" name="gender" required>
+            <option *ngFor="let gender of genders" [value]="gender">
+                {{gender}}
+            </option>
+        </select><br><br>
+
+        <label for="passportNumber">Passport number:</label><br>
+        <input [(ngModel)]="newPassenger.passportNumber" name="passportNumber" required>
+        <br><br>
+        <label for="nationality">Nationality:</label><br>
+        <input [(ngModel)]="newPassenger.nationality" name="nationality" required>
+
+        <br><br>
+        <button (click)="addPassenger()" [routerLink]="('/passenger/view')">Add Passenger</button>
+    </form>
+</body>
+
+</html>

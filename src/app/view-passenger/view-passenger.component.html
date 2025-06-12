@@ -1,0 +1,63 @@
+<h1>View Passenger</h1>
+<a [routerLink]="['/home']"><button>Go Back</button></a>
+<br>
+<br>
+<div>
+    <h3>Enter Passenger ID:</h3>
+    <input type="number" [(ngModel)]="passengerId" name="id" placeholder="Enter PassengerId" />
+    <button (click)="viewByIdPassenger()">View Payment</button>
+
+    <div *ngIf="passenger">
+        <h3>Passenger Details:</h3>
+        <p><strong>Name:</strong> {{passenger.name}}</p>
+        <p><strong>Age:</strong> {{passenger.age}}</p>
+        <p><strong>Gender:</strong> {{passenger.gender}}</p>
+        <p><strong>Nationality:</strong> {{passenger.nationality}}</p>
+        <p><strong> Number:</strong> {{passenger.passportNumber}}</p>
+    </div>
+</div>
+
+<h3>All Passengers:</h3>
+
+<table border="1">
+
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Nationality</th>
+            <th>Passport Number</th>
+            <th>Actions:</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let p of passengers">
+            <td>{{p.id}}</td>
+            <td>{{p.name}}</td>
+            <td>{{p.age}}</td>
+            <td>{{p.gender}}</td>
+            <td>{{p.nationality}}</td>
+            <td>{{p.passportNumber}}</td>
+            <td><button (click)="deletePassenger(p.id!)">Delete</button></td>
+            <td><button (click)="populateUpdateForm(p)">Update</button></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h2>Update Passenger</h2>
+<form (ngSubmit)="updatePassenger()">
+    <input [(ngModel)]="newPassenger.id" name="id" type="number" placeholder="id" readonly />
+    <input [(ngModel)]="newPassenger.name" name="name" type="text" placeholder="name" required />
+    <select [(ngModel)]="newPassenger.gender" name="gender" required>
+        <option *ngFor="let gender of genders" [value]="gender">
+            {{gender}}
+        </option>
+    </select>
+    <input [(ngModel)]="newPassenger.age" name="age" type="number" placeholder="name" required />
+    <input [(ngModel)]="newPassenger.nationality" name="nationality" placeholder="nationality" required />
+    <input [(ngModel)]="newPassenger.passportNumber" name="passportNumber" placeholder="Passport Number" required />
+    <button type="submit">Update Passenger</button>
+</form>

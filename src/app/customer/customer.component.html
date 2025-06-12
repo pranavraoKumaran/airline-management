@@ -1,0 +1,209 @@
+<a [routerLink]="['/home']"><button>Go Back</button></a>
+
+<h2>Add Frequent Flyer</h2>
+
+<form (ngSubmit)="addFrequentFlyer()">
+
+
+    <label for="membershipNumber">MemeberShip Number:</label>
+    <input [(ngModel)]="addFrequentFlyerData.membershipNumber" type="text" name="membershipNumber" required /><br><br>
+
+    <label for="status">Status:</label>
+    <select [(ngModel)]="addFrequentFlyerData.status" name="status">
+        <option *ngFor="let status of statues" [value]="status">
+            {{status}}
+        </option>
+    </select><br><br>
+
+    <label for="pointsEarned">Points Earned:</label>
+    <input [(ngModel)]="addFrequentFlyerData.pointsEarned" name="pointsEarned" type="number" required /><br><br>
+
+    <label for="tierExpiryDate">Tier Expiry Date:</label>
+    <input [(ngModel)]="addFrequentFlyerData.tierExpiryDate" name="tierExpiryDate" type="datetime-local"
+        required /><br><br>
+
+    <button type="submit">Add Frequent Flyer</button>
+</form>
+
+<h2>All Frequent Flyers</h2>
+
+<table border="1">
+
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Membership Number</th>
+            <th>Status</th>
+            <th>Points Earned</th>
+            <th>Tier Expiry Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let frequentFlyer of frequentFlyerList">
+            <td>{{frequentFlyer.id}}</td>
+            <td>{{frequentFlyer.membershipNumber}}</td>
+            <td>{{frequentFlyer.status}}</td>
+            <td>{{frequentFlyer.pointsEarned}}</td>
+            <td>{{frequentFlyer.tierExpiryDate|date:'medium'}} </td>
+            <td>
+                <button (click)="deleteFrequentFlyer(frequentFlyer.id!)">Delete</button>
+                <button (click)="populateUpdateFormFrequentFlyer(frequentFlyer)">Update</button>
+            </td>
+
+        </tr>
+
+    </tbody>
+
+</table>
+
+<div *ngIf="updateFormFrequentFlyer">
+    <h2>Update Frequent Flyer</h2>
+    <form (ngSubmit)="UpdateFrequentFlyer()">
+
+
+        <label for="membershipNumber">MemeberShip Number:</label>
+        <input [(ngModel)]="frequentFlyerUpdate.membershipNumber" type="text" name="membershipNumber"
+            required /><br><br>
+
+        <label for="status">Status:</label>
+        <select [(ngModel)]="frequentFlyerUpdate.status" name="status">
+            <option *ngFor="let status of statues" [value]="status">
+                {{status}}
+            </option>
+        </select><br><br>
+
+        <label for="pointsEarned">Points Earned:</label>
+        <input [(ngModel)]="frequentFlyerUpdate.pointsEarned" name="pointsEarned" type="number" required /><br><br>
+
+        <label for="tierExpiryDate">Tier Expiry Date:</label>
+        <input [(ngModel)]="frequentFlyerUpdate.tierExpiryDate" name="tierExpiryDate" type="datetime-local"
+            required /><br><br>
+
+        <button type="submit">Update Frequent Flyer</button>
+    </form>
+
+
+</div>
+
+
+
+<h2>View By Id Frequent Flyer</h2>
+
+<label for="id">Id:</label>
+<input [(ngModel)]="frequentFlyerId" type="number" name="id" required />
+<button (click)="viewByIdFrequentFlyer()">Find Frequent Flyer</button>
+<div *ngIf="viewFrequentFlyer">
+    {{viewFrequentFlyer|json}}
+</div>
+
+<h2>Add Customer</h2>
+<form (submit)="addCustomer()">
+
+    <label for="firstName">First Name:</label>
+    <input [(ngModel)]="addCustomerData.firstName" type="text" name="firstName" required /><br><br>
+
+    <label for="lastName">Last Name:</label>
+    <input [(ngModel)]="addCustomerData.lastName" type="text" name="lastName" required /><br><br>
+
+    <label for="email">Email:</label>
+    <input [(ngModel)]="addCustomerData.email" type="text" name="email" required /><br><br>
+
+    <label for="phone">Phone:</label>
+    <input [(ngModel)]="addCustomerData.phone" type="text" name="phone" required /><br><br>
+
+    <label for="dateOfBirth">Date Of Birth:</label>
+    <input [(ngModel)]="addCustomerData.dateOfBirth" type="date" name="dateOfBirth" /><br><br>
+
+    <label for="loyaltyPoints">Loayalty Points:</label>
+    <input [(ngModel)]="addCustomerData.loyaltyPoints" type="number" name="loyaltyPoints" required /><br><br>
+
+    <label for="frequentFlyer">Frequent Flyer:</label>
+    <select [(ngModel)]="addCustomerData.frequentFlyer" name="frequentFlyer">
+        <option *ngFor="let frequentflyer of frequentFlyerList" [ngValue]="frequentflyer">
+            {{frequentflyer.membershipNumber}}
+        </option>
+    </select><br><br>
+
+    <button type="submit">Add Customer</button>
+</form>
+
+<h2>All Customers</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Date of Birth</th>
+            <th>Loayalty Points</th>
+            <th>Frequent Flyer</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let customer of customerList">
+            <td>{{customer.id}}</td>
+            <td>{{customer.firstName}}</td>
+            <td>{{customer.lastName}}</td>
+            <td>{{customer.email}}</td>
+            <td>{{customer.phone}}</td>
+            <td>{{customer.dateOfBirth}}</td>
+            <td>{{customer.loyaltyPoints}}</td>
+            <td>{{customer.frequentFlyer.membershipNumber}}</td>
+            <td>
+                <button (click)="deleteCustomer(customer.id!)">Delete</button>
+                <button (click)="populateUpdateFormCustomer(customer)">Update</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div *ngIf="updateFormCustomer">
+    <h2>Update Customer</h2>
+
+    <form (submit)="updateCustomer()">
+
+        <label for="firstName">First Name:</label>
+        <input [(ngModel)]="updateCustomerData.firstName" type="text" name="firstName" required /><br><br>
+
+        <label for="lastName">Last Name:</label>
+        <input [(ngModel)]="updateCustomerData.lastName" type="text" name="lastName" required /><br><br>
+
+        <label for="email">Email:</label>
+        <input [(ngModel)]="updateCustomerData.email" type="text" name="email" required /><br><br>
+
+        <label for="phone">Phone:</label>
+        <input [(ngModel)]="updateCustomerData.phone" type="text" name="phone" required /><br><br>
+
+        <label for="dateOfBirth">Date Of Birth:</label>
+        <input [(ngModel)]="updateCustomerData.dateOfBirth" type="date" name="dateOfBirth" /><br><br>
+
+        <label for="loyaltyPoints">Loayalty Points:</label>
+        <input [(ngModel)]="updateCustomerData.loyaltyPoints" type="number" name="loyaltyPoints" required /><br><br>
+
+        <label for="frequentFlyer">Frequent Flyer:</label>
+        <select [(ngModel)]="updateCustomerData.frequentFlyer" name="frequentFlyer">
+            <option *ngFor="let frequentflyer of frequentFlyerList" [ngValue]="frequentflyer">
+                {{frequentflyer.membershipNumber}}
+            </option>
+        </select><br><br>
+
+        <button type="submit">Update Customer</button>
+    </form>
+
+</div>
+
+<h2>View By Id Customer</h2>
+<label for="id">Customer Id:</label>
+<input [(ngModel)]="customerId" type="number" />
+<button (click)="viewByIdCustomer()">View Customer</button>
+<div *ngIf="viewCustomer">
+    <p>{{viewCustomer|json}}</p>
+
+</div>

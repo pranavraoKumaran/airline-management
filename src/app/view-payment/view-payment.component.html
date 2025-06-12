@@ -1,0 +1,42 @@
+<a [routerLink]="['/home']"><button>Go Back</button></a>
+
+<div>
+    <input type="number" [(ngModel)]="paymentId" name="id" placeholder="Enter Payment Id" />
+    <button (click)="viewByIdPayment()">View Payment</button>
+
+    <div *ngIf="payment">
+        <h3>Payment Details</h3>
+        <p><strong>Amount:</strong>{{payment.amount}}</p>
+        <p><strong>Payment Date:</strong>{{payment.paymentDate}}</p>
+        <p><strong>Payment Method:</strong>{{payment.paymentMethod}}</p>
+        <p><strong>Payment Status:</strong>{{payment.paymentStatus}}</p>
+    </div>
+</div>
+
+<h3>All Payments</h3>
+
+<table border="1">
+
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Amount</th>
+            <th>Payment Date</th>
+            <th>Payment Method</th>
+            <th>Payment Status</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let p of payments">
+            <td>{{p.id}}</td>
+            <td>{{p.amount}}</td>
+            <td>{{p.paymentDate}}</td>
+            <td>{{p.paymentMethod}}</td>
+            <td>{{p.paymentStatus}}</td>
+        </tr>
+
+    </tbody>
+
+
+</table>

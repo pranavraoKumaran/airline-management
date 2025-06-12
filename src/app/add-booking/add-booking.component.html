@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<a [routerLink]="['/home']"><button>Go Back</button></a>
+
+<head>
+    <title>Add Booking</title>
+</head>
+
+<body>
+    <h2>Booking Form</h2>
+
+    <form (ngSubmit)="addBooking()">
+
+        <label for="seatNumber">Seat Number:</label><br>
+        <input [(ngModel)]="newBooking.seatNumber" name="seatNumber" placeholder="Seat Number" type="text"
+            required><br><br>
+
+        <label for="bookingDate">Booking Date:</label><br>
+        <input [(ngModel)]="newBooking.bookingDate" name="bookingDate" type="datetime-local"><br><br>
+
+
+        <label for="status">Status:</label><br>
+        <select [(ngModel)]="newBooking.status" name="status" required>
+            <option *ngFor="let status of statuses" [value]="status">
+                {{status}}
+            </option>
+        </select>
+
+
+        <br><br>
+
+        <label for="passenger">Passenger:</label><br>
+        <select [(ngModel)]="newBooking.passenger" name="passenger" required>
+            <option *ngFor="let passenger of passengerList" [ngValue]="passenger">
+                {{passenger.name}}
+            </option>
+        </select><br><br>
+
+
+
+        <label for="customerId">Customer:</label><br>
+        <select [(ngModel)]="newBooking.customerId" name="customerId">
+            <option *ngFor="let customer of customers" [ngValue]="customer.id">
+                {{customer.id}}
+            </option>
+
+        </select>
+        <br>
+        <br>
+
+
+        <label for="flightId">Flight:</label><br>
+        <select [(ngModel)]="newBooking.flightId" name="flightId">
+            <option *ngFor="let flight of flights" [ngValue]="flight.id">
+                {{flight.id}}
+            </option>
+        </select>
+
+        <br>
+        <br>
+
+        <label for="payment">Payment:</label><br>
+        <select [(ngModel)]="newBooking.payment" name="payment" required>
+            <option *ngFor="let payment of paymentList" [ngValue]="payment">
+                {{payment.id}}
+            </option>
+        </select><br><br>
+
+        <button (click)="addBooking()" [routerLink]="('/booking/view')">Add Booking</button>
+    </form>
+
+</body>
+
+</html>

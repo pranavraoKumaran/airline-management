@@ -1,0 +1,213 @@
+<a [routerLink]="['/home']"><button>Go Back</button></a>
+<h1>Add Airport</h1>
+
+<form (ngSubmit)="addAirport()">
+
+
+    <label for="code">Code:</label>
+    <input [(ngModel)]="addAirportData.code" name="code" type="text" required /><br><br>
+
+    <label for="name">Name:</label>
+    <input [(ngModel)]="addAirportData.name" name="name" type="text" required /><br><br>
+
+    <label for="city">City:</label>
+    <input [(ngModel)]="addAirportData.city" name="city" type="text" required /><br><br>
+
+    <label for="country">Country:</label>
+    <input [(ngModel)]="addAirportData.country" name="country" type="text" required /><br><br>
+
+    <button type="submit">Add Airport</button>
+</form>
+
+<h2>All Airports</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>City</th>
+            <th>Code</th>
+            <th>Country</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let airport of airports">
+            <td>{{airport.id}}</td>
+            <td>{{airport.city}}</td>
+            <td>{{airport.code}}</td>
+            <td>{{airport.country}}</td>
+            <td>{{airport.name}}</td>
+            <td>
+                <button (click)="deleteAirport(airport.id!)">Delete</button>
+                <button (click)="populateUpdateFormAirport(airport)">Update</button>
+            </td>
+
+        </tr>
+
+    </tbody>
+</table>
+
+<h2>Get Airport By Id</h2>
+<input [(ngModel)]="airportId" type="number" name="id">
+<button (click)="viewByIdAirport(airportId)">View Airport</button>
+
+<div *ngIf="viewAirport">
+
+    <p>{{viewAirport|json}}</p>
+</div>
+<div *ngIf="newAirport">
+
+    <form (ngSubmit)="updateAirport()">
+        <h2>Update Airport</h2>
+        <label for="id">ID:</label>
+        <input [(ngModel)]="newAirport.id" type="number" name="id" placeholder="id" readonly />
+        <label for="code">Code:</label>
+        <input [(ngModel)]="newAirport.code" type="text" name="code" placeholder="code" required />
+        <label for="name">Name:</label>
+        <input [(ngModel)]="newAirport.name" type="text" name="name" placeholder="name" required />
+        <label for="city">City:</label>
+        <input [(ngModel)]="newAirport.city" type="text" name="city" placeholder="city" required />
+        <label for="country">Country:</label>
+        <input [(ngModel)]="newAirport.country" type="text" name="country" placeholder="country" required />
+
+        <button type="submit">Update Airport</button>
+    </form>
+
+</div>
+
+<h1>Add Flight</h1>
+
+<form (ngSubmit)="addFlight()">
+
+    <label for="flightNumber">Flight Number:</label>
+    <input [(ngModel)]="addFlightData.flightNumber" name="flightNumber" type="number" required /><br><br>
+
+    <label for="depatureAirport">Depature Airport:</label>
+    <select [(ngModel)]="addFlightData.departureAirport" name="departureAirport" required>
+        <option *ngFor="let airport of airports" [ngValue]="airport">
+            {{airport.code}}
+        </option>
+    </select><br><br>
+
+    <label for="arrivalAirport">Arrival Airport:</label>
+    <select [(ngModel)]="addFlightData.arrivalAirport" name="arrivalAirport" required>
+        <option *ngFor="let airport of airports" [ngValue]="airport">
+            {{airport.code}}
+        </option>
+    </select><br><br>
+
+    <label for="departureTime">Depature Time:</label>
+    <input [(ngModel)]="addFlightData.departureTime" type="datetime-local" name="departureTime" required /><br><br>
+
+    <label for="arrivalTime">Arrival Time:</label>
+    <input [(ngModel)]="addFlightData.arrivalTime" type="datetime-local" name="arrivalTime" required /><br><br>
+
+    <label for="seatCapacity">Seat Capacity:</label>
+    <input [(ngModel)]="addFlightData.seatCapacity" type="number" name="seatCapacity" required /><br><br>
+
+    <label for="availableSeats">Available Seats:</label>
+    <input [(ngModel)]="addFlightData.availableSeats" type="number" name="availableSeats" required /><br><br>
+
+    <label for="status">Status:</label>
+    <select [(ngModel)]="addFlightData.status" name="status" required>
+        <option *ngFor="let status of statuses" [value]="status">
+            {{status}}
+        </option>
+    </select><br><br>
+
+    <button type="submit">Add Flight</button>
+
+
+
+
+</form>
+<h2>View By Id Flight:</h2>
+<label for="id"></label>
+<input [(ngModel)]="flightId" name="id" type="number">
+<button (click)="viewByIdFlight(flightId)">View Flight</button>
+<div *ngIf="viewFlight">
+    <p>{{viewFlight|json}}</p>
+
+</div>
+<h3>All Flights</h3>
+
+<table border="1">
+
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Flight Number</th>
+            <th>Departure Airport</th>
+            <th>Arrival Airport</th>
+            <th>Arrival Time</th>
+            <th>Departure Time</th>
+            <th>Seat Capacity</th>
+            <th>Available Seats</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let flight of flights">
+            <td>{{flight.id}}</td>
+            <td>{{flight.flightNumber}}</td>
+            <td>{{flight.departureAirport.code}}</td>
+            <td>{{flight.arrivalAirport.code}}</td>
+            <td>{{flight.arrivalTime|date:'medium'}}</td>
+            <td>{{flight.departureTime|date:'medium'}}</td>
+            <td>{{flight.seatCapacity}}</td>
+            <td>{{flight.availableSeats}}</td>
+            <td>{{flight.status}}</td>
+            <td>
+                <button (click)="deleteFlight(flight.id!)">Delete</button>
+                <button (click)="populateUpdateFormFlight(flight)">Update</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<h2>Update Flight</h2>
+<form (ngSubmit)="updateFlight()">
+    <label for="flightNumber">Flight Number:</label>
+    <input [(ngModel)]="newFlight.flightNumber" name="flightNumber" type="number" required /><br><br>
+
+    <label for="depatureAirport">Depature Airport:</label>
+    <select [(ngModel)]="newFlight.departureAirport" name="departureAirport" required>
+        <option *ngFor="let airport of airports" [ngValue]="airport">
+            {{airport.code}}
+        </option>
+    </select><br><br>
+
+    <label for="arrivalAirport">Arrival Airport:</label>
+    <select [(ngModel)]="newFlight.arrivalAirport" name="arrivalAirport" required>
+        <option *ngFor="let airport of airports" [ngValue]="airport">
+            {{airport.code}}
+        </option>
+    </select><br><br>
+
+    <label for="departureTime">Depature Time:</label>
+    <input [(ngModel)]="newFlight.departureTime" type="datetime-local" name="departureTime" required /><br><br>
+
+    <label for="arrivalTime">Arrival Time:</label>
+    <input [(ngModel)]="newFlight.arrivalTime" type="datetime-local" name="arrivalTime" required /><br><br>
+
+    <label for="seatCapacity">Seat Capacity:</label>
+    <input [(ngModel)]="newFlight.seatCapacity" type="number" name="seatCapacity" required /><br><br>
+
+    <label for="availableSeats">Available Seats:</label>
+    <input [(ngModel)]="newFlight.availableSeats" type="number" name="availableSeats" required /><br><br>
+
+    <label for="status">Status:</label>
+    <select [(ngModel)]="newFlight.status" name="status" required>
+        <option *ngFor="let status of statuses" [value]="status">
+            {{status}}
+        </option>
+    </select><br><br>
+
+    <button type="submit">Update Flight</button>
+
+
+</form>

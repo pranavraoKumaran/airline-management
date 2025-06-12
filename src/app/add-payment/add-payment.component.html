@@ -1,0 +1,31 @@
+<a [routerLink]="['/home']"><button>Go Back</button></a>
+
+
+<h1>Add Payment</h1>
+
+<form (ngSubmit)="addPayment()">
+
+    <input type="hidden" name="id">
+
+    <label for="amount">Amount:</label>
+    <input [(ngModel)]="newPayment.amount" name="amount" placeholder="amount" required> <br><br>
+
+    <label for="paymentMethod">Payment Method:</label>
+    <select [(ngModel)]="newPayment.paymentMethod" name="paymentMethod">
+        <option *ngFor="let method of paymentMethods" [value]="method">
+            {{method}}
+
+        </option>
+    </select><br><br>
+
+    <label for="paymentStatus">Payment Status:</label>
+    <select [(ngModel)]="newPayment.paymentStatus" name="paymentStatus">
+        <option *ngFor="let status of paymentStatuses" [value]="status">
+            {{status}}
+        </option>
+
+    </select><br><br>
+
+    <button (click)="addPayment()" [routerLink]="('/payment/view')">Add Payment</button>
+
+</form>
