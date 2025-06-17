@@ -9,7 +9,6 @@ import { ViewPaymentComponent } from './view-payment/view-payment.component';
 import { FlightComponent } from './flight/flight.component';
 import { CustomerComponent } from './customer/customer.component';
 import { ViewBooking } from './view-booking/view-booking';
-import { Testcomponent } from './testcomponent/testcomponent';
 import { NotificationComponent } from './notification-component/notification-component';
 
 export const routes: Routes = [
