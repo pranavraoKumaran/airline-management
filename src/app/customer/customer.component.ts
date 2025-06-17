@@ -20,6 +20,8 @@ export class CustomerComponent implements OnInit {
     this.loadAllFrequentFlyers();
     this.loadAllCustomers();
   }
+  customersFilled = false;
+  customersEmpty = false;
   frequentFlyerId = 0;
   customerId = 0;
   viewFrequentFlyer?: FrequentFlyer;
@@ -111,6 +113,7 @@ export class CustomerComponent implements OnInit {
           }
 
         }
+        this.ngOnInit();
 
       }
     )
@@ -133,13 +136,27 @@ export class CustomerComponent implements OnInit {
   }
 
   loadAllCustomers(): void {
+    this.customersEmpty = true
+
     this.customerService.viewAllCustomer().subscribe(
       data => {
+
         this.customerList = data;
+        if (this.customerList.length >= 1) {
+          this.customersFilled = true;
+          this.customersEmpty = false;
+        }
+        else {
+          this.customersFilled = false
+          this.customersEmpty = true
+        }
       }
     )
 
-  }
+
+  };
+
+
   loadAllFrequentFlyers(): void {
     this.customerService.viewAllFrequentFlyer().subscribe(
       data => {
@@ -167,7 +184,7 @@ export class CustomerComponent implements OnInit {
   deleteCustomer(id: number): void {
     this.customerService.deleteCustomer(id).subscribe(
       () => {
-        this.loadAllCustomers();
+        this.ngOnInit();
       }
     )
   }

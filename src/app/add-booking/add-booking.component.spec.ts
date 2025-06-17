@@ -7,7 +7,6 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { By } from '@angular/platform-browser';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { PaymentMethod, PaymentStatus } from '../models/model';
 
 describe('AddBookingComponent', () => {

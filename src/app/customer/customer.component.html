@@ -2,7 +2,7 @@
 
 <h2>Add Frequent Flyer</h2>
 
-<form (ngSubmit)="addFrequentFlyer()">
+<form (ngSubmit)="addFrequentFlyer()" name="addFrequentFlyerForm">
 
 
     <label for="membershipNumber">MemeberShip Number:</label>
@@ -60,7 +60,7 @@
 
 <div *ngIf="updateFormFrequentFlyer">
     <h2>Update Frequent Flyer</h2>
-    <form (ngSubmit)="UpdateFrequentFlyer()">
+    <form (ngSubmit)="UpdateFrequentFlyer()" name="updateFrequentFlyerForm">
 
 
         <label for="membershipNumber">MemeberShip Number:</label>
@@ -99,7 +99,7 @@
 </div>
 
 <h2>Add Customer</h2>
-<form (submit)="addCustomer()">
+<form (ngSubmit)="addCustomer()" name="addCustomerForm">
 
     <label for="firstName">First Name:</label>
     <input [(ngModel)]="addCustomerData.firstName" type="text" name="firstName" required /><br><br>
@@ -129,45 +129,49 @@
     <button type="submit">Add Customer</button>
 </form>
 
-<h2>All Customers</h2>
+<div *ngIf="customersEmpty">
+    NO Content
+</div>
+<div *ngIf="customersFilled">
+    <h2>All Customers</h2>
 
-<table border="1">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Date of Birth</th>
-            <th>Loayalty Points</th>
-            <th>Frequent Flyer</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
+    <table border="1" name="customerTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Date of Birth</th>
+                <th>Loayalty Points</th>
+                <th>Frequent Flyer</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
 
-    <tbody>
-        <tr *ngFor="let customer of customerList">
-            <td>{{customer.id}}</td>
-            <td>{{customer.firstName}}</td>
-            <td>{{customer.lastName}}</td>
-            <td>{{customer.email}}</td>
-            <td>{{customer.phone}}</td>
-            <td>{{customer.dateOfBirth}}</td>
-            <td>{{customer.loyaltyPoints}}</td>
-            <td>{{customer.frequentFlyer.membershipNumber}}</td>
-            <td>
-                <button (click)="deleteCustomer(customer.id!)">Delete</button>
-                <button (click)="populateUpdateFormCustomer(customer)">Update</button>
-            </td>
-        </tr>
-    </tbody>
-</table>
-
+        <tbody>
+            <tr *ngFor="let customer of customerList">
+                <td>{{customer.id}}</td>
+                <td>{{customer.firstName}}</td>
+                <td>{{customer.lastName}}</td>
+                <td>{{customer.email}}</td>
+                <td>{{customer.phone}}</td>
+                <td>{{customer.dateOfBirth}}</td>
+                <td>{{customer.loyaltyPoints}}</td>
+                <td>{{customer.frequentFlyer.membershipNumber}}</td>
+                <td>
+                    <button (click)="deleteCustomer(customer.id!)">Delete</button>
+                    <button (click)="populateUpdateFormCustomer(customer)">Update</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 <div *ngIf="updateFormCustomer">
     <h2>Update Customer</h2>
 
-    <form (submit)="updateCustomer()">
+    <form (ngSubmit)="updateCustomer()" name="updateCustomerForm">
 
         <label for="firstName">First Name:</label>
         <input [(ngModel)]="updateCustomerData.firstName" type="text" name="firstName" required /><br><br>
@@ -202,7 +206,7 @@
 <h2>View By Id Customer</h2>
 <label for="id">Customer Id:</label>
 <input [(ngModel)]="customerId" type="number" />
-<button (click)="viewByIdCustomer()">View Customer</button>
+<button (click)="viewByIdCustomer()" name="viewByIdButton">View Customer</button>
 <div *ngIf="viewCustomer">
     <p>{{viewCustomer|json}}</p>
 

@@ -193,8 +193,8 @@ describe('BookingService', () => {
         }
       )
       const req = httpMock.expectOne(`http://localhost:2002/booking/getdetails/${bookingId}`)
-      //expect(req.request.method).toBe('GET');
-      //req.flush(dummyBookingDTO);
+      expect(req.request.method).toBe('GET');
+      req.flush(dummyBookingDTO);
     });
 
 
